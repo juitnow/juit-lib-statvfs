@@ -14,7 +14,7 @@ describe('StatVFS interface', () => {
       mockery.registerMock(binary, (path, callback) => {
         expect(path).to.eql('/the-path')
         if (error) throw error
-        setTimeout(() => callback(...args), 100)
+        setImmediate(() => callback(...args))
       })
 
       mockery.enable({
@@ -75,10 +75,7 @@ describe('StatVFS interface', () => {
     })
 
     it('should invoke successfully', async function() {
-      // for some reason, coverage reports hold onto a "process.nextTick()"
-      // call for a looooong time, so we set a large timeout here
-      this.timeout(20000)
-      this.slow(1000)
+      this.slow(100)
 
       const statvfs = require('../index.js')
       const result = await statvfs('/')
