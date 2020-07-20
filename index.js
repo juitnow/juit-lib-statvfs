@@ -8,13 +8,13 @@ module.exports = function statvfs(path) {
     if (! path) throw new TypeError('No path specified')
     if (typeof path !== 'string') throw new TypeError('Invalid type for path')
 
-    native(path, (error, total, avail, free) => {
+    native(path, (error, total, avail, free) => setImmediate(() => {
       if (error) return reject(error)
       resolve({
         total: total,
         available: avail,
         free: free,
       })
-    })
+    }))
   })
 }
