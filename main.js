@@ -14,8 +14,7 @@ async function main(path, unit = 'b') {
 
   const results = await(statvfs(path))
   for (const key in results) {
-    if (key === 'usage') console.log('usage (%)', results[key])
-    else console.log(key, Math.round(results[key] / divider))
+    console.log(key.padStart(9), Math.round(results[key] / divider))
   }
 }
 

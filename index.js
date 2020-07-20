@@ -1,7 +1,7 @@
 'use strict'
 
 const os = require('os')
-const native = require(`./xlib/statvfs-${os.type()}-${os.arch()}.node`.toLowerCase())
+const native = require(`./lib/statvfs-${os.type()}-${os.arch()}.node`.toLowerCase())
 
 module.exports = function statvfs(path) {
   return new Promise((resolve, reject) => {
@@ -10,7 +10,7 @@ module.exports = function statvfs(path) {
 
     native(path, (error, total, avail, free) => {
       if (error) return reject(error)
-      return resolve({
+      resolve({
         total: total,
         available: avail,
         free: free,

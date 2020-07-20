@@ -8,7 +8,7 @@ describe('StatVFS interface', () => {
   let statvfs = null, args = [], error = null
 
   before(() => {
-    mockery.registerMock('./xlib/statvfs-darwin-x64.node', (path, callback) => {
+    mockery.registerMock('./lib/statvfs-darwin-x64.node', (path, callback) => {
       expect(path).to.eql('/the-path')
       if (error) throw error
       callback(...args)
