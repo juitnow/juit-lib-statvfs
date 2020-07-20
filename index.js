@@ -8,9 +8,9 @@ module.exports = function statvfs(path) {
     if (! path) throw new TypeError('No path specified')
     if (typeof path !== 'string') throw new TypeError('Invalid type for path')
 
-    console.log('FOO')
+    console.log(new Date().toISOString(), 'FOO')
     native(path, (error, total, avail, free) => {
-      console.log('BAR1', error, total, avail, free, promise)
+      console.log(new Date().toISOString(), 'BAR1', error, total, avail, free, promise)
 
       if (error) {
         reject(error)
@@ -22,7 +22,7 @@ module.exports = function statvfs(path) {
         })
       }
 
-      console.log('BAR2', error, total, avail, free, promise)
+      console.log(new Date().toISOString(), 'BAR2', error, total, avail, free, promise)
 
     })
   })

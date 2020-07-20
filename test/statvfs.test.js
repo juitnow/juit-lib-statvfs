@@ -78,23 +78,23 @@ describe('StatVFS interface', () => {
       // this.slow(10000)
 
       const statvfs = require('../index.js')
-      console.log('REQUIRED')
+      console.log(new Date().toISOString(), 'REQUIRED')
 
       const promise = statvfs('/') //new Promise((resolve, reject) => {
       // setTimeout(() => resolve({}), 1000)
       // })// statvfs('/')
-      console.log('PROMISE', promise)
+      console.log(new Date().toISOString(), 'PROMISE', promise)
       // .then((result) => {
       //   console.log('YO')
       //   return result
       // })
       promise.then(() => {
-        console.log('RESOLVED')
+        console.log(new Date().toISOString(), 'RESOLVED')
       })
 
       const result = await promise
 
-      console.log('awaited')
+      console.log(new Date().toISOString(), 'awaited')
 
       expect(result).to.be.an('object')
       expect(result).to.have.keys([ 'total', 'available', 'free' ])
