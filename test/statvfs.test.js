@@ -74,8 +74,9 @@ describe('StatVFS interface', () => {
       delete require.cache[require.resolve('..')]
     })
 
-    it('should invoke successfully', async () => {
-      // this.slow(10000)
+    it('should invoke successfully', async function() {
+      this.slow(10000)
+      this.timeout(10000)
 
       console.log(new Date().toISOString(), 'REQUIRING')
       const statvfs = require('../index.js')

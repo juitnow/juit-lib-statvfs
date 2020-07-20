@@ -12,6 +12,7 @@ module.exports = function statvfs(path) {
     native(path, (error, total, avail, free) => {
       console.log(new Date().toISOString(), 'BAR1', error, total, avail, free, promise)
 
+      process.nextTick(() => {
       if (error) {
         reject(error)
       } else {
@@ -23,6 +24,7 @@ module.exports = function statvfs(path) {
       }
 
       console.log(new Date().toISOString(), 'BAR2', error, total, avail, free, promise)
+      })
 
     })
   })
