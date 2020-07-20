@@ -77,6 +77,7 @@ describe('StatVFS interface', () => {
     it('should invoke successfully', async () => {
       // this.slow(10000)
 
+      console.log(new Date().toISOString(), 'REQUIRING')
       const statvfs = require('../index.js')
       console.log(new Date().toISOString(), 'REQUIRED')
 
