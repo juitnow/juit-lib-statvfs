@@ -1,0 +1,6 @@
+.*
+build/
+coverage/
+native/build/
+node_modules/
+lambda.zip

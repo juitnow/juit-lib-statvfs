@@ -1,0 +1,44 @@
+name: Automatic Updates
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+
+jobs:
+  auto-update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12.x
+
+      - name: Create NPM configuration
+        run: |
+          cat > ${NPM_CONFIG_USERCONFIG:-~/.npmrc} << EOF
+          @oetkerdigital:registry=https://npm.pkg.github.com/
+          @juitnow:registry=https://npm.pkg.github.com/
+          //npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}
+          always-auth=false
+          EOF
+
+      - name: Update the package
+        run: |
+          npm run updates
+          git update-index --refresh > /dev/null || npm run bump
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v2
+        with:
+          token: ${{ secrets.PACKAGES_TOKEN }}
+          commit-message: Update package dependencies
+          committer: Team Juit <dev@juit.com>
+          title: Automatic dependencies upgrade
+          branch: auto-update
+          team-reviewers: juit-admins
