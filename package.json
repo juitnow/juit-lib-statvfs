@@ -1,6 +1,6 @@
 {
   "name": "@juitnow/lib-statvfs",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Simple native bindings for \"statvfs\"",
   "author": "Team Juit <developers@juit.com>",
   "license": "UNLICENSED",
