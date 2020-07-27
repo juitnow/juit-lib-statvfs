@@ -9,7 +9,8 @@ module.exports = function statvfs(path) {
     if (! path) throw new TypeError('No path specified')
     if (typeof path !== 'string') throw new TypeError('Invalid type for path')
 
-    native.statvfs(path, (error, stat) => setImmediate(() => {
+    native.statvfs(path, (error, stat) => {
+      console.log('NOIMMEDIATE');
       if (error) return reject(error)
       const frsize = stat.f_frsize
 
@@ -18,6 +19,6 @@ module.exports = function statvfs(path) {
         available: stat.f_bavail * frsize,
         free: stat.f_bfree * frsize,
       })
-    }))
+    })
   })
 }

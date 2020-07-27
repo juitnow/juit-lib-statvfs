@@ -53,9 +53,9 @@ namespace StatVFS {
       char path[PATH_MAX];
       struct statvfs stat;
       int error = 0;
-};
+  };
 
-  Value startStatVFS(const CallbackInfo& info) {
+  Value StatVFSInit(const CallbackInfo& info) {
     Env env = info.Env();
 
     if (info.Length() != 2) throw TypeError::New(env, "Two arguments required: path, callback");
@@ -72,7 +72,8 @@ namespace StatVFS {
   };
 
   Object Init(Env env, Object exports) {
-    exports["statvfs"] = Function::New(env, startStatVFS, std::string("statvfs"));
+    printf("NEW VERSION\n");
+    exports.Set("statvfs", Function::New(env, StatVFSInit, "statvfs"));
     return exports;
   };
 
