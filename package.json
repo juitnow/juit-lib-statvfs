@@ -15,7 +15,7 @@
     "dev": "npx nodemon -x npm run build",
     "lint": "eslint --cache '**/*js'",
     "lintfix": "eslint --cache '**/*js' --fix",
-    "recompile": "node-gyp -C native rebuild && cp ./native/build/Release/statvfs.node lib/$(node -e 'console.log(`statvfs-${os.type()}-${os.arch()}.node`.toLowerCase())')",
+    "recompile": "node-gyp -C native rebuild && cp ./native/build/Release/statvfs.node lib/$(node -p '`statvfs-${os.type()}-${os.arch()}.node`.toLowerCase()')",
     "test": "mocha 'test/**/*.test.js' || false",
     "updates": "rm -rf package-lock.json && npx npm-check-updates -u && npm install"
   },
@@ -27,6 +27,7 @@
     "eslint-config-google": "^0.14.0",
     "mocha": "^8.0.1",
     "mockery": "^2.1.0",
+    "node-addon-api": "^3.0.0",
     "node-gyp": "^7.0.0",
     "nyc": "^15.1.0",
     "source-map-support": "^0.5.19"
