@@ -12,6 +12,7 @@ describe('StatVFS interface', () => {
     before(() => {
       const binary = `./native/${os.type()}-${os.arch()}/statvfs.node`.toLowerCase()
       mockery.registerMock(binary, {
+        version: require('../package.json').version,
         statvfs: (path, callback) => {
           expect(path).to.eql('/the-path')
           if (error) throw error
