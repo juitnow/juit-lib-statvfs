@@ -14,9 +14,11 @@ async function main(path, unit = 'b') {
     default: throw new TypeError(`Invalid unit ${unit}`)
   }
 
-  const results = await(statvfs(path))
-  for (const key in results) {
-    console.log(key.padStart(9), Math.round(results[key] / divider))
+  const result = await(statvfs(path))
+  for (const key in result) {
+    const value = result[key]
+    if (typeof value !== 'number') continue
+    console.log(key.padStart(9), Math.round(value / divider))
   }
 }
 

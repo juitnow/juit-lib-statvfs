@@ -1,19 +1,22 @@
 'use strict'
 
 const os = require('os')
-const native = require(`./lib/statvfs-${os.type()}-${os.arch()}.node`.toLowerCase())
+const platform = `${os.type()}-${os.arch()}`.toLowerCase()
+const native = require(`./native/${platform}/statvfs.node`)
 
 module.exports = function statvfs(path) {
   return new Promise((resolve, reject) => {
     if (! path) throw new TypeError('No path specified')
     if (typeof path !== 'string') throw new TypeError('Invalid type for path')
 
-    native(path, (error, total, avail, free) => setImmediate(() => {
+    native.statvfs(path, (error, stat) => setImmediate(() => {
       if (error) return reject(error)
+      const frsize = stat.f_frsize
+
       resolve({
-        total: total,
-        available: avail,
-        free: free,
+        total: stat.f_blocks * frsize,
+        available: stat.f_bavail * frsize,
+        free: stat.f_bfree * frsize,
       })
     }))
   })
