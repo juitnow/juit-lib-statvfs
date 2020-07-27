@@ -76,7 +76,6 @@ namespace StatVFS {
   };
 
   Object Init(Env env, Object exports) {
-    printf("NEW VERSION %s\n", ADDON_VERSION);
     exports.Set("version", String::New(env, ADDON_VERSION));
     exports.Set("statvfs", Function::New(env, StatVFSInit, "statvfs"));
     return exports;
