@@ -6,6 +6,10 @@
 using namespace Napi;
 using namespace Errno;
 
+#ifndef ADDON_VERSION
+#define ADDON_VERSION "0.0.0"
+#endif
+
 namespace StatVFS {
 
   class StatVFSAsyncWorker : public AsyncWorker {
@@ -72,7 +76,8 @@ namespace StatVFS {
   };
 
   Object Init(Env env, Object exports) {
-    printf("NEW VERSION\n");
+    printf("NEW VERSION %s\n", ADDON_VERSION);
+    exports.Set("version", String::New(env, ADDON_VERSION));
     exports.Set("statvfs", Function::New(env, StatVFSInit, "statvfs"));
     return exports;
   };

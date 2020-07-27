@@ -6,6 +6,9 @@
         "statvfs.cc",
         "errno-error.cc"
       ],
+      "defines": [
+        "ADDON_VERSION=\"<!(node -p \"require('../package.json').version\")\""
+      ],
       "include_dirs": [
         "<!@(node -p \"require('node-addon-api').include\")"
       ],
