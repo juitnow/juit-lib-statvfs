@@ -1,4 +1,5 @@
 #include <sys/statvfs.h>
+#include <limits.h>
 #include <napi.h>
 #include "errno-error.h"
 
