@@ -10,11 +10,13 @@ describe('StatVFS interface', () => {
     let statvfs = null, args = [], error = null
 
     before(() => {
-      const binary = `./lib/statvfs-${os.type()}-${os.arch()}.node`.toLowerCase()
-      mockery.registerMock(binary, (path, callback) => {
-        expect(path).to.eql('/the-path')
-        if (error) throw error
-        setImmediate(() => callback(...args))
+      const binary = `./native/${os.type()}-${os.arch()}/statvfs.node`.toLowerCase()
+      mockery.registerMock(binary, {
+        statvfs: (path, callback) => {
+          expect(path).to.eql('/the-path')
+          if (error) throw error
+          setImmediate(() => callback(...args))
+        },
       })
 
       mockery.enable({
@@ -39,7 +41,7 @@ describe('StatVFS interface', () => {
     it('should invoke successfully', async function() {
       if (!statvfs) return this.skip()
 
-      args = [ undefined, 1, 2, 3 ], error = null
+      args = [ undefined, { f_frsize: 0.1, f_blocks: 10, f_bavail: 20, f_bfree: 30 } ], error = null
       expect(await statvfs('/the-path')).to.eql({
         total: 1,
         available: 2,
