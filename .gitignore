@@ -1,6 +1,6 @@
 .*
 build/
 coverage/
-native/build/
+dist/
 node_modules/
 lambda.zip

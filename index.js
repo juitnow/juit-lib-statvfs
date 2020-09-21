@@ -3,12 +3,6 @@
 const os = require('os')
 const platform = `${os.type()}-${os.arch()}`.toLowerCase()
 const native = require(`./native/${platform}/statvfs.node`)
-const version = require('./package.json').version
-
-/* istanbul ignore if */
-if (native.version != version) {
-  console.error(`WARNING: statvfs version mismatch: js=${version} native=${native.version}`)
-}
 
 module.exports = function statvfs(path) {
   return new Promise((resolve, reject) => {

@@ -5,6 +5,8 @@ env:
 extends:
   - google
   - eslint:recommended
+  - plugin:import/errors
+  - plugin:import/warnings
 parser: babel-eslint
 parserOptions:
   ecmaVersion: 2018
@@ -42,3 +44,9 @@ rules:
   strict:
     - error
     - global
+  # eslint-plugin-import rules
+  import/no-extraneous-dependencies:
+    - error
+    - devDependencies: false
+  import/no-unused-modules:
+    - error
