@@ -15,12 +15,12 @@ rules:
   array-bracket-spacing:
     - error
     - always
-  camelcase: 'off'
+  camelcase: off
   eol-last:
     - error
     - always
-  guard-for-in: 'off'
-  max-len: 'off'
+  guard-for-in: off
+  max-len: off
   no-multiple-empty-lines:
     - error
     - max: 2
@@ -32,12 +32,12 @@ rules:
   object-curly-spacing:
     - error
     - always
-  one-var: 'off'
+  one-var: off
   quotes:
     - error
     - single
     - allowTemplateLiterals: false
-  require-jsdoc: 'off'
+  require-jsdoc: off
   semi:
     - error
     - never
@@ -50,3 +50,9 @@ rules:
     - devDependencies: false
   import/no-unused-modules:
     - error
+overrides:
+  - files: 'test/**'
+    rules:
+      import/no-extraneous-dependencies:
+        - error
+        - devDependencies: true

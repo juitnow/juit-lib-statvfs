@@ -2,7 +2,7 @@ name: Release Package
 
 on:
   push:
-    branches: [master,trunk]
+    branches: [trunk]
 
 jobs:
   release:
@@ -16,15 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-
-      - name: Create NPM configuration
-        run: |
-          cat > ${NPM_CONFIG_USERCONFIG:-~/.npmrc} << EOF
-          @oetkerdigital:registry=https://npm.pkg.github.com/
-          @juitnow:registry=https://npm.pkg.github.com/
-          //npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}
-          always-auth=false
-          EOF
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: Build the package
         id: build
@@ -41,7 +33,7 @@ jobs:
       # to a push to trunk (same as this workflow)
 
       - name: Create Release
-        uses: juitnow/github-action-create-release@v1
+        uses: actions/create-release@v1
         with:
           tag_name: v${{ steps.build.outputs.version }}
           release_name: Release ${{ steps.build.outputs.version }}

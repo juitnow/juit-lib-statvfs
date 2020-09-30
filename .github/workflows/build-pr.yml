@@ -15,15 +15,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-
-      - name: Create NPM configuration
-        run: |
-          cat > ${NPM_CONFIG_USERCONFIG:-~/.npmrc} << EOF
-          @oetkerdigital:registry=https://npm.pkg.github.com/
-          @juitnow:registry=https://npm.pkg.github.com/
-          //npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}
-          always-auth=false
-          EOF
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: Build the package
         id: build

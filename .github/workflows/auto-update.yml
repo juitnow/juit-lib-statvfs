@@ -3,6 +3,8 @@ name: Automatic Updates
 on:
   schedule:
     - cron: "0 0 * * *"
+  workflow_dispatch:
+
 
 jobs:
   auto-update:
@@ -16,15 +18,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 12.x
-
-      - name: Create NPM configuration
-        run: |
-          cat > ${NPM_CONFIG_USERCONFIG:-~/.npmrc} << EOF
-          @oetkerdigital:registry=https://npm.pkg.github.com/
-          @juitnow:registry=https://npm.pkg.github.com/
-          //npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}
-          always-auth=false
-          EOF
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: Update the package
         run: |
@@ -34,11 +28,12 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.PACKAGES_TOKEN }}
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v2
+        uses: peter-evans/create-pull-request@v3
         with:
+          # Use the "PACKAGES_TOKEN" as we want the PR checks to run
           token: ${{ secrets.PACKAGES_TOKEN }}
-          commit-message: Update package dependencies
-          committer: Team Juit <dev@juit.com>
-          title: Automatic dependencies upgrade
+          commit-message: Automatic update of package dependencies
+          committer: Team Juit <developers@juit.com>
+          title: Automatic update of package dependencies
+          team-reviewers: reviewers
           branch: auto-update
-          team-reviewers: juit-admins
