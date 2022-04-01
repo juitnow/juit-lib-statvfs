@@ -4,7 +4,7 @@ const os = require('os')
 const platform = `${os.type()}-${os.arch()}`.toLowerCase()
 const native = require(`./native/${platform}/statvfs.node`)
 
-module.exports = function statvfs(path, cb) {
+function statvfs(path, cb) {
   if (! cb) {
     return new Promise((resolve, reject) => {
       try {
@@ -32,3 +32,6 @@ module.exports = function statvfs(path, cb) {
     })
   })
 }
+
+statvfs.default = statvfs
+module.exports = statvfs
