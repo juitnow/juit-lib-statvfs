@@ -1,42 +1,40 @@
 {
-  "targets": [
-    {
-      "target_name": "statvfs",
-      "sources": [
-        "statvfs.cc",
-        "errno-error.cc"
-      ],
-      "defines": [
-        "ADDON_VERSION=\"<!(node -p \"require('../package.json').version\")\""
-      ],
-      "include_dirs": [
-        "<!@(node -p \"require('node-addon-api').include\")"
-      ],
-      "dependencies": [
-        "<!(node -p \"require('node-addon-api').gyp\")"
-      ],
-      "cflags!": [
-        "-fno-exceptions"
-      ],
-      "cflags_cc!": [
-        "-fno-exceptions"
-      ],
-      "xcode_settings": {
-        "GCC_ENABLE_CPP_EXCEPTIONS": "YES",
-        "CLANG_CXX_LIBRARY": "libc++",
-        "MACOSX_DEPLOYMENT_TARGET": "10.7"
-      }
-    },
-    {
-        "target_name": "copy_binary",
-        "type":"none",
-        "dependencies" : [ "statvfs" ],
-        "copies": [
-        {
-          "destination": "<(module_root_dir)/<!(node -p '`${os.type()}-${os.arch()}`.toLowerCase()')",
-          "files": [ "<(module_root_dir)/build/Release/statvfs.node" ]
-        }
-      ]
+  # Variables: read "addon_version" from our package.json's "version" field
+  "variables": {
+    "addon_version": "<!(node -p \"require('../package.json').version\")",
+    # The "node_os_platform" is either "linux" or "darwin" from `os.platform()`
+    # See https://nodejs.org/api/os.html#osplatform
+    "node_os_platform": "<(OS)",
+    # The "node_os_arch" is either "x64" or "arm64" from `os.arch()`
+    # See https://nodejs.org/api/os.html#osarch
+    "node_os_arch": "<(target_arch)"
+  },
+
+  # Fixup variables
+  "conditions": [
+    [ "OS=='mac'",             { "variables": { "node_os_platform": "darwin" } } ],
+    [ "target_arch=='x86_64'", { "variables": { "node_os_arch":     "x64"    } } ],
+  ],
+
+  "targets": [ {
+    # Build "statvfs.node" in the "./build/Release" directory
+    "target_name": "statvfs",
+    "sources": [ "statvfs.c" ],
+    "defines": [ "ADDON_VERSION=\"<(addon_version)\"" ],
+    "cflags": [ "-Wstrict-prototypes" ],
+    "ldflags": [ "-s" ],
+    "xcode_settings": {
+      "MACOSX_DEPLOYMENT_TARGET": "20.0",
+      "OTHER_CFLAGS": [ "-Wstrict-prototypes" ],
     }
-  ]
+  }, {
+    # Copy "statvfs.node" into "./platform-arch/statvfs.node"
+    "target_name": "copy_binary",
+    "type": "none",
+    "dependencies" : [ "statvfs" ],
+    "copies": [ {
+      "files": [ "<(module_root_dir)/build/Release/statvfs.node" ],
+      "destination": "<(module_root_dir)/<(node_os_platform)-<(node_os_arch)",
+    } ],
+  } ]
 }
