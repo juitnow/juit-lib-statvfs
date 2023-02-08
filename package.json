@@ -19,7 +19,7 @@
     }
   },
   "scripts": {
-    "build-native": "./build-native.sh",
+    "build-native": "./native/build.sh",
     "build": "plug"
   },
   "engines": {
