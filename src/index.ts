@@ -37,6 +37,7 @@ export interface FilesystemStats {
 export function statvfs(path: string): Promise<FilesystemStats> {
   return new Promise((resolve, reject) => {
     native.statvfs(path, (error: Error | null, stats?: native.StatVFSData) => {
+      // coverage ignore if
       if (error) return reject(error)
 
       if (stats) {
@@ -67,6 +68,7 @@ export function statvfs(path: string): Promise<FilesystemStats> {
         })
       }
 
+      // coverage ignore next
       return reject(new Error('No error or stats received'))
     })
   })
