@@ -3,8 +3,8 @@ export const version: string
 
 /** Raw statistics about our filesystem */
 export interface StatVFSData {
-  /** Fundamental file system block size */
-  f_bsize: bigint,
+  /** Block size in bytes */
+  f_frsize: bigint,
   /** Total data blocks in file system */
   f_blocks: bigint,
   /** Free blocks */

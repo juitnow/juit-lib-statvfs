@@ -204,7 +204,7 @@ static void _statvfs_complete(
 
     NAPI_CALL_VOID(napi_create_error, _env, NULL, __message, &__args[0]);
   } else if (__data.__success) {
-    napi_value __f_bsize = NULL;
+    napi_value __f_frsize = NULL;
     napi_value __f_blocks = NULL;
     napi_value __f_bfree = NULL;
     napi_value __f_bavail = NULL;
@@ -213,14 +213,14 @@ static void _statvfs_complete(
 
     NAPI_CALL_VOID(napi_create_object, _env, &__args[1]);
 
-    NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_bsize, &__f_bsize);
+    NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_frsize, &__f_frsize);
     NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_blocks, &__f_blocks);
     NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_bfree, &__f_bfree);
     NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_bavail, &__f_bavail);
     NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_files, &__f_files);
     NAPI_CALL_VOID(napi_create_bigint_uint64, _env, __data.__stats.f_ffree, &__f_ffree);
 
-    NAPI_CALL_VOID(napi_set_named_property, _env, __args[1], "f_bsize", __f_bsize);
+    NAPI_CALL_VOID(napi_set_named_property, _env, __args[1], "f_frsize", __f_frsize);
     NAPI_CALL_VOID(napi_set_named_property, _env, __args[1], "f_blocks", __f_blocks);
     NAPI_CALL_VOID(napi_set_named_property, _env, __args[1], "f_bfree", __f_bfree);
     NAPI_CALL_VOID(napi_set_named_property, _env, __args[1], "f_bavail", __f_bavail);
