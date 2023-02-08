@@ -1,6 +1,6 @@
-.*
-build/
+.coverage-data/
+.vscode/
 coverage/
 dist/
-lambda.zip
+native/build/
 node_modules/

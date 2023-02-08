@@ -1,6 +1,6 @@
-.*
-build/
+*.tgz
+.coverage-data/
+.vscode/
 coverage/
-lambda.zip
+dist/
 node_modules/
-test/

@@ -1,40 +1,52 @@
 {
-  "name": "@juitnow/lib-statvfs",
-  "version": "1.0.6",
+  "name": "@juit/lib-statvfs",
+  "version": "1.0.0",
+  "type": "commonjs",
   "description": "Simple native bindings for \"statvfs\"",
-  "author": "Team Juit <developers@juit.com>",
-  "license": "UNLICENSED",
-  "main": "index.js",
-  "bin": {
-    "statvfs": "main.js"
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      },
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      }
+    }
   },
   "scripts": {
-    "build": "npm run lint -- --cache && npm run coverage",
-    "bump": "bash -c 'npm --no-git-tag-version version ${1:-patch}' --",
-    "coverage": "nyc --reporter=html --reporter=text npm run test",
-    "dev": "npx nodemon -i dist -e js,json,ts -x npm run build",
-    "lint": "eslint --ext .js --ext .ts .",
-    "lintfix": "npm run lint -- --fix",
-    "recompile": "node-gyp -C native rebuild",
-    "test": "mocha 'test/**/*.test.{ts,js}' || false",
-    "update-node-base": "npx @juitnow/cmd-node-base --release --replace && npm run updates",
-    "updates": "rm -rf node_modules package-lock.json && npx @juitnow/cmd-check-updates && npm install"
+    "build-native": "./build-native.sh",
+    "build": "plug"
   },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "df",
+    "disk",
+    "monitoring",
+    "statvfs",
+    "typescript"
+  ],
+  "author": "Juit Developers <developers@juit.com>",
+  "license": "Apache-2.0",
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "chai": "^4.3.4",
-    "chai-as-promised": "^7.1.1",
-    "eslint": "^7.28.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-plugin-import": "^2.23.4",
-    "mocha": "^8.4.0",
-    "mockery": "^2.1.0",
-    "node-addon-api": "^3.2.1",
-    "node-gyp": "^8.1.0",
-    "nyc": "^15.1.0",
-    "source-map-support": "^0.5.19"
+    "@plugjs/build": "^0.1.0",
+    "@types/node": "^18.13.0",
+    "node-gyp": "^9.3.1",
+    "typescript": "^4.9.5"
   },
   "directories": {
     "test": "test"
-  }
+  },
+  "files": [
+    "*.md",
+    "dist/",
+    "src/",
+    "tsconfig.json"
+  ]
 }
