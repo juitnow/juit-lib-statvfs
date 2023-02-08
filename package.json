@@ -46,6 +46,10 @@
   "files": [
     "*.md",
     "dist/",
+    "native/darwin-*",
+    "native/linux-*",
+    "native/statvfs.cjs",
+    "native/statvfs.d.cts",
     "src/",
     "tsconfig.json"
   ]
