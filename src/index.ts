@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 
-import * as native from '../native/statvfs.cjs'
+import native from '../native/statvfs.cjs'
 
 export interface FilesystemStats {
   /** The total number of blocks in the file system */
