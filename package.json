@@ -1,6 +1,6 @@
 {
   "name": "@juit/lib-statvfs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "commonjs",
   "description": "Simple native bindings for \"statvfs\"",
   "main": "./dist/index.cjs",
