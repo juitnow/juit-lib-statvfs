@@ -1,6 +1,6 @@
 {
   "name": "@juit/lib-statvfs",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Simple native bindings for \"statvfs\"",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -39,7 +39,7 @@
   "author": "Juit Developers <developers@juit.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@plugjs/build": "^0.4.6",
+    "@plugjs/build": "^0.4.7",
     "@types/node": "<19",
     "node-gyp": "^9.3.1",
     "typescript": "^5.0.4"
